@@ -23,7 +23,7 @@ MonoBehaviour:
   - Stat: 0
     Amount: 7
   - Stat: 1
-    Amount: 7
+    Amount: 5
   - Stat: 2
     Amount: 2
   - Stat: 3
@@ -31,7 +31,7 @@ MonoBehaviour:
   - Stat: 4
     Amount: 4
   - Stat: 5
-    Amount: 4
+    Amount: 5
   ResistanceBonuses:
   - Resistance: 0
     Amount: 0

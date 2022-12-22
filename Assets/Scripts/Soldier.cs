@@ -29,7 +29,8 @@ public class Soldier
     const int MAX_STAT_VARIANCE = 3;
     const int PRIMARY_STAT_MOD = 100;
     const int SECONDARY_STAT_MOD = 25;
-    const int STAT_DIVISOR = 376;
+    const int DEF_DIVISOR = 376;
+    const int ATK_DIVISOR = 280;
 
     public int Number;
     public string Name;
@@ -84,7 +85,9 @@ public class Soldier
     {
         Experience = 0;
         Level++;
+        RemoveEquipmentBonuses();
         LevelUpStats();
+        CalculateEquipmentStatBonuses();
         CalculateDefenses();
         CalculateAttacks();
         // will need to be careful of the Job resistance bonus increasing the resistances every level
@@ -139,14 +142,14 @@ public class Soldier
 
     private void CalculateDefenses()
     {
-        PhysicalDefense = Mathf.RoundToInt(((Stats[BaseStats.Vitality] + PRIMARY_STAT_MOD) * (Stats[BaseStats.Strength] + SECONDARY_STAT_MOD) * (Job.PhysicalDefense / 100)) / STAT_DIVISOR);
-        MagicalDefense = Mathf.RoundToInt(((Stats[BaseStats.Mentality] + PRIMARY_STAT_MOD) * (Stats[BaseStats.Intelligence] + SECONDARY_STAT_MOD) * (Job.MagicalDefense / 100)) / STAT_DIVISOR);
+        PhysicalDefense = Mathf.RoundToInt(((Stats[BaseStats.Vitality] + PRIMARY_STAT_MOD) * (Stats[BaseStats.Strength] + SECONDARY_STAT_MOD) * (Job.PhysicalDefense / 100)) / DEF_DIVISOR);
+        MagicalDefense = Mathf.RoundToInt(((Stats[BaseStats.Mentality] + PRIMARY_STAT_MOD) * (Stats[BaseStats.Intelligence] + SECONDARY_STAT_MOD) * (Job.MagicalDefense / 100)) / DEF_DIVISOR);
     }
 
     private void CalculateAttacks()
     {
-        PhysicalAttack = Mathf.RoundToInt(((Stats[BaseStats.Strength] + PRIMARY_STAT_MOD) * (Stats[BaseStats.Dexterity] + SECONDARY_STAT_MOD) * (Job.PhysicalAttack / 100)) / STAT_DIVISOR);
-        MagicalAttack = Mathf.RoundToInt(((Stats[BaseStats.Intelligence] + PRIMARY_STAT_MOD) * (Stats[BaseStats.Mentality] + SECONDARY_STAT_MOD) * (Job.MagicalAttack / 100)) / STAT_DIVISOR);
+        PhysicalAttack = Mathf.RoundToInt(((Stats[BaseStats.Strength] + PRIMARY_STAT_MOD) * (Stats[BaseStats.Dexterity] + SECONDARY_STAT_MOD) * (Job.PhysicalAttack / 100)) / ATK_DIVISOR);
+        MagicalAttack = Mathf.RoundToInt(((Stats[BaseStats.Intelligence] + PRIMARY_STAT_MOD) * (Stats[BaseStats.Mentality] + SECONDARY_STAT_MOD) * (Job.MagicalAttack / 100)) / ATK_DIVISOR);
     }
 
     private void CalculateResistances()

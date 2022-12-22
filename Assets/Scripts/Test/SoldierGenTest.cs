@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using UnityEngine;
 
 public class SoldierGenTest : MonoBehaviour
@@ -13,9 +14,9 @@ public class SoldierGenTest : MonoBehaviour
         Soldier two = new Soldier(2, "Two", 3, jobs[0]);
         Soldier three = new Soldier(3, "Three", 3, jobs[0]);
 
-        print(JsonUtility.ToJson(zero, true));
-        print(JsonUtility.ToJson(one, true));
-        print(JsonUtility.ToJson(two, true));
-        print(JsonUtility.ToJson(three, true));
+        print(JsonConvert.SerializeObject(zero, Formatting.Indented));
+        print(JsonConvert.SerializeObject(one, Formatting.Indented));
+        print(JsonConvert.SerializeObject(two, Formatting.Indented));
+        print(JsonConvert.SerializeObject(three, Formatting.Indented));
     }
 }
