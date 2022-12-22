@@ -52,16 +52,19 @@ public class Soldier
         Name = name;
         Level = level;
         Job = job;
-        CalculateBaseStats();
+        foreach (BaseStats stat in Enum.GetValues(typeof(BaseStats)))
+        {
+            Stats.Add(stat, UnityEngine.Random.Range(BASE_STAT_LOWER, BASE_STAT_UPPER + 1));
+        }
         for (int i = 0; i < Level; i++)
         {
             LevelUpStats();
         }
         EquipDefault();
-        CalculateEquipmentStatBonuses();
+        AddEquipmentStatBonuses();
         CalculateDefenses();
         CalculateAttacks();
-        CalculateResistances();
+        SetResistances();
     }
 
     public void AddExperience(int amount)
@@ -74,10 +77,10 @@ public class Soldier
     {
         RemoveEquipmentBonuses();
         Equipment[equip.Slot] = equip;
-        CalculateEquipmentStatBonuses();
+        AddEquipmentStatBonuses();
         CalculateDefenses();
         CalculateAttacks();
-        CalculateResistances();
+        SetResistances();
     }
 
     private void LevelUp()
@@ -86,10 +89,10 @@ public class Soldier
         Level++;
         RemoveEquipmentBonuses();
         LevelUpStats();
-        CalculateEquipmentStatBonuses();
+        AddEquipmentStatBonuses();
         CalculateDefenses();
         CalculateAttacks();
-        CalculateResistances();
+        SetResistances();
     }
 
     private void LevelUpStats()
@@ -102,7 +105,7 @@ public class Soldier
         }
     }
 
-    private void CalculateEquipmentStatBonuses()
+    private void AddEquipmentStatBonuses()
     {
         foreach (Equipment e in Equipment.Values)
         {
@@ -128,19 +131,29 @@ public class Soldier
         }
     }
 
-    private void CalculateDefenses()
+    private void EquipDefault()
     {
-        PhysicalDefense = Mathf.RoundToInt(((Stats[BaseStats.Vitality] + PRIMARY_STAT_MOD) * (Stats[BaseStats.Strength] + SECONDARY_STAT_MOD) * (Job.PhysicalDefense / 100)) / DEF_DIVISOR);
-        MagicalDefense = Mathf.RoundToInt(((Stats[BaseStats.Mentality] + PRIMARY_STAT_MOD) * (Stats[BaseStats.Intelligence] + SECONDARY_STAT_MOD) * (Job.MagicalDefense / 100)) / DEF_DIVISOR);
+        foreach (SlotEquipment se in Job.DefaultEquipment)
+        {
+            Equipment.Add(se.Slot, se.Equipment);
+        }
     }
 
-    private void CalculateAttacks()
+    private int GetEquipmenResistance(Elements res)
     {
-        PhysicalAttack = Mathf.RoundToInt(((Stats[BaseStats.Strength] + PRIMARY_STAT_MOD) * (Stats[BaseStats.Dexterity] + SECONDARY_STAT_MOD) * (Job.PhysicalAttack / 100)) / ATK_DIVISOR);
-        MagicalAttack = Mathf.RoundToInt(((Stats[BaseStats.Intelligence] + PRIMARY_STAT_MOD) * (Stats[BaseStats.Mentality] + SECONDARY_STAT_MOD) * (Job.MagicalAttack / 100)) / ATK_DIVISOR);
+        int val = 0;
+        foreach (Equipment e in Equipment.Values)
+        {
+            foreach (ResistanceBonus rb in e.ResistanceBonuses)
+            {
+                if (rb.Resistance == res) val += rb.Amount;
+                break;
+            }
+        }
+        return val;
     }
 
-    private void CalculateResistances()
+    private void SetResistances()
     {
         Resistances.Clear();
         foreach (Elements res in Enum.GetValues(typeof(Elements)))
@@ -158,6 +171,18 @@ public class Soldier
         }
     }
 
+    private void CalculateDefenses()
+    {
+        PhysicalDefense = Mathf.RoundToInt(((Stats[BaseStats.Vitality] + PRIMARY_STAT_MOD) * (Stats[BaseStats.Strength] + SECONDARY_STAT_MOD) * (Job.PhysicalDefense / 100)) / DEF_DIVISOR);
+        MagicalDefense = Mathf.RoundToInt(((Stats[BaseStats.Mentality] + PRIMARY_STAT_MOD) * (Stats[BaseStats.Intelligence] + SECONDARY_STAT_MOD) * (Job.MagicalDefense / 100)) / DEF_DIVISOR);
+    }
+
+    private void CalculateAttacks()
+    {
+        PhysicalAttack = Mathf.RoundToInt(((Stats[BaseStats.Strength] + PRIMARY_STAT_MOD) * (Stats[BaseStats.Dexterity] + SECONDARY_STAT_MOD) * (Job.PhysicalAttack / 100)) / ATK_DIVISOR);
+        MagicalAttack = Mathf.RoundToInt(((Stats[BaseStats.Intelligence] + PRIMARY_STAT_MOD) * (Stats[BaseStats.Mentality] + SECONDARY_STAT_MOD) * (Job.MagicalAttack / 100)) / ATK_DIVISOR);
+    }
+
     public int CalculatePhysicalDamage(int enemyAtk, Elements atkElement)
     {
         int damage = Mathf.RoundToInt(((enemyAtk * 100) / (PhysicalDefense + 100)) * (1 - (Resistances[atkElement] / 100)));
@@ -170,35 +195,5 @@ public class Soldier
         int damage = Mathf.RoundToInt(((enemyAtk * 100) / (MagicalDefense + 100)) * (1 - (Resistances[atkElement] / 100)));
         if (damage <= 0) return 1;
         return damage;
-    }
-
-    private void CalculateBaseStats()
-    {
-        foreach(BaseStats stat in Enum.GetValues(typeof(BaseStats)))
-        {
-            Stats.Add(stat, UnityEngine.Random.Range(BASE_STAT_LOWER, BASE_STAT_UPPER + 1));
-        }
-    }
-
-    private void EquipDefault() 
-    {
-        foreach(SlotEquipment se in Job.DefaultEquipment)
-        {
-            Equipment.Add(se.Slot, se.Equipment);
-        }
-    }
-
-    private int GetEquipmenResistance(Elements res) 
-    {
-        int val = 0;
-        foreach (Equipment e in Equipment.Values)
-        {
-            foreach (ResistanceBonus rb in e.ResistanceBonuses)
-            {
-                if (rb.Resistance == res) val += rb.Amount;
-                break;
-            }
-        }
-        return val;
     }
 }
