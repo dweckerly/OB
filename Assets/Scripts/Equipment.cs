@@ -36,6 +36,7 @@ public class Equipment : ScriptableObject
     public string Name;
     public Slot Slot;
     public EquipmentType Type;
+    public Elements Element;
     public List<StatBonus> StatBonuses;
     public List<ResistanceBonus> ResistanceBonuses;
     

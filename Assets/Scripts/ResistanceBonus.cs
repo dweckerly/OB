@@ -1,6 +1,6 @@
 [System.Serializable]
 public class ResistanceBonus 
 {
-    public BaseResistances Resistance;
+    public Elements Resistance;
     public int Amount;
 }

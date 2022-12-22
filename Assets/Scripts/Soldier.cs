@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum BaseResistances {
+public enum Elements {
     Physical,
     Magical,
     Fire,
@@ -42,7 +42,7 @@ public class Soldier
     public int MagicalDefense;
     public int PhysicalAttack;
     public int MagicalAttack;
-    public Dictionary<BaseResistances, int> Resistances = new Dictionary<BaseResistances, int>();
+    public Dictionary<Elements, int> Resistances = new Dictionary<Elements, int>();
     public Dictionary<BaseStats, int> Stats = new Dictionary<BaseStats, int>();
     public Dictionary<Slot, Equipment> Equipment = new Dictionary<Slot, Equipment>();
 
@@ -61,7 +61,6 @@ public class Soldier
         CalculateEquipmentStatBonuses();
         CalculateDefenses();
         CalculateAttacks();
-        InstantiateResistances();
         CalculateResistances();
     }
 
@@ -90,9 +89,6 @@ public class Soldier
         CalculateEquipmentStatBonuses();
         CalculateDefenses();
         CalculateAttacks();
-        // will need to be careful of the Job resistance bonus increasing the resistances every level
-        // instantiating the resistances each time should fix??
-        InstantiateResistances();
         CalculateResistances();
     }
 
@@ -103,14 +99,6 @@ public class Soldier
             int val = sb.Amount + UnityEngine.Random.Range(MAX_STAT_VARIANCE * -1, MAX_STAT_VARIANCE + 1);
             if (val < 1) val = 1;
             Stats[sb.Stat] += val; 
-        }
-    }
-
-    private void InstantiateResistances()
-    {
-        foreach (BaseResistances res in Enum.GetValues(typeof(BaseResistances)))
-        {
-            Resistances.Add(res, 0);
         }
     }
 
@@ -154,7 +142,12 @@ public class Soldier
 
     private void CalculateResistances()
     {
-        foreach (BaseResistances resistance in Enum.GetValues(typeof(BaseResistances)))
+        Resistances.Clear();
+        foreach (Elements res in Enum.GetValues(typeof(Elements)))
+        {
+            Resistances.Add(res, 0);
+        }
+        foreach (Elements resistance in Enum.GetValues(typeof(Elements)))
         {
             Resistances[resistance] = GetEquipmenResistance(resistance);
             foreach (ResistanceBonus rb in Job.ResistanceBonuses)
@@ -163,6 +156,20 @@ public class Soldier
                 break;
             }
         }
+    }
+
+    public int CalculatePhysicalDamage(int enemyAtk, Elements atkElement)
+    {
+        int damage = Mathf.RoundToInt(((enemyAtk * 100) / (PhysicalDefense + 100)) * (1 - (Resistances[atkElement] / 100)));
+        if (damage <= 0) return 1;
+        return damage;
+    }
+
+    public int CalculateMagicalDamage(int enemyAtk, Elements atkElement)
+    {
+        int damage = Mathf.RoundToInt(((enemyAtk * 100) / (MagicalDefense + 100)) * (1 - (Resistances[atkElement] / 100)));
+        if (damage <= 0) return 1;
+        return damage;
     }
 
     private void CalculateBaseStats()
@@ -181,7 +188,7 @@ public class Soldier
         }
     }
 
-    private int GetEquipmenResistance(BaseResistances res) 
+    private int GetEquipmenResistance(Elements res) 
     {
         int val = 0;
         foreach (Equipment e in Equipment.Values)
