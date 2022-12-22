@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce3a423ad5abab4aa0f952143bfa2de, type: 3}
   m_Name: Buckler
   m_EditorClassIdentifier: 
-  Name: 
-  Slot: 0
-  StatBonuses: []
-  Type: 0
+  Name: Buckler
+  Slot: 2
+  Type: 10
+  StatBonuses:
+  - Stat: 5
+    Amount: 2
+  ResistanceBonuses:
+  - Resistance: 0
+    Amount: 5

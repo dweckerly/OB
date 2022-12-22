@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce3a423ad5abab4aa0f952143bfa2de, type: 3}
   m_Name: Light Bow
   m_EditorClassIdentifier: 
-  Name: 
+  Name: Light Bow
   Slot: 0
-  Type: 0
-  StatBonuses: []
+  Type: 8
+  StatBonuses:
+  - Stat: 4
+    Amount: 5
+  - Stat: 5
+    Amount: 5
   ResistanceBonuses: []

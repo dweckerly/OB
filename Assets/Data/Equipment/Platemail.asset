@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce3a423ad5abab4aa0f952143bfa2de, type: 3}
   m_Name: Platemail
   m_EditorClassIdentifier: 
-  Name: 
-  Slot: 0
-  Type: 0
-  StatBonuses: []
-  ResistanceBonuses: []
+  Name: Platemail
+  Slot: 1
+  Type: 3
+  StatBonuses:
+  - Stat: 1
+    Amount: 20
+  ResistanceBonuses:
+  - Resistance: 0
+    Amount: 20

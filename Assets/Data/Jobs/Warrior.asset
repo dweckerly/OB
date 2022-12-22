@@ -12,14 +12,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70b237d9898b96748ba345489f3304e3, type: 3}
   m_Name: Warrior
   m_EditorClassIdentifier: 
-  Name: 
-  PhysicalAttack: 0
-  MagicalAttack: 0
-  PhysicalDefense: 0
-  MagicalDefense: 0
-  StatProgressions: []
-  PositionalAttacks: {fileID: 0}
-  ItemSlots: 0
+  Name: Warrior
+  PhysicalAttack: 50
+  MagicalAttack: 30
+  PhysicalDefense: 20
+  MagicalDefense: 20
+  ItemSlots: 2
   TerrainType: 0
-  EquipmentTypes: []
-  DefaultEquipment: []
+  StatProgressions:
+  - Stat: 0
+    Amount: 7
+  - Stat: 1
+    Amount: 7
+  - Stat: 2
+    Amount: 2
+  - Stat: 3
+    Amount: 2
+  - Stat: 4
+    Amount: 4
+  - Stat: 5
+    Amount: 4
+  ResistanceBonuses:
+  - Resistance: 0
+    Amount: 0
+  PositionalAttacks:
+  - Position: 0
+    Attack: {fileID: 11400000, guid: 2eb3abe7c546b5445a7ab6faa30ddf7e, type: 2}
+  - Position: 1
+    Attack: {fileID: 11400000, guid: 2eb3abe7c546b5445a7ab6faa30ddf7e, type: 2}
+  - Position: 2
+    Attack: {fileID: 11400000, guid: 2eb3abe7c546b5445a7ab6faa30ddf7e, type: 2}
+  EquipmentTypes:
+  - Slot: 0
+    Type: 4
+  - Slot: 1
+    Type: 2
+  - Slot: 2
+    Type: 10
+  - Slot: 3
+    Type: 12
+  DefaultEquipment:
+  - Slot: 0
+    Equipment: {fileID: 11400000, guid: 5c451131ffee79a489a0f6e776d511c2, type: 2}
+  - Slot: 1
+    Equipment: {fileID: 11400000, guid: b8ad559417174ee42a89e6b5cfa471d2, type: 2}
+  - Slot: 2
+    Equipment: {fileID: 11400000, guid: b62d9fe016ce3874b8b09116fd67e1f1, type: 2}
+  - Slot: 3
+    Equipment: {fileID: 11400000, guid: 780f3af06aeda0a4faa0389ef9786a9b, type: 2}

@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce3a423ad5abab4aa0f952143bfa2de, type: 3}
   m_Name: Leather Armor
   m_EditorClassIdentifier: 
-  Name: 
-  Slot: 0
-  StatBonuses: []
+  Name: Leather Armor
+  Slot: 1
   Type: 0
+  StatBonuses:
+  - Stat: 1
+    Amount: 2
+  ResistanceBonuses:
+  - Resistance: 0
+    Amount: 5

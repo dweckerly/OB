@@ -12,8 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce3a423ad5abab4aa0f952143bfa2de, type: 3}
   m_Name: Leather Cap
   m_EditorClassIdentifier: 
-  Name: 
-  Slot: 0
-  Type: 0
-  StatBonuses: []
-  ResistanceBonuses: []
+  Name: Leather Cap
+  Slot: 3
+  Type: 17
+  StatBonuses:
+  - Stat: 4
+    Amount: 2
+  - Stat: 5
+    Amount: 2
+  ResistanceBonuses:
+  - Resistance: 0
+    Amount: 1
+  - Resistance: 1
+    Amount: 5

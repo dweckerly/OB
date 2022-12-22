@@ -12,8 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce3a423ad5abab4aa0f952143bfa2de, type: 3}
   m_Name: Short Spear
   m_EditorClassIdentifier: 
-  Name: 
+  Name: Short Spear
   Slot: 0
-  Type: 0
-  StatBonuses: []
+  Type: 7
+  StatBonuses:
+  - Stat: 0
+    Amount: 5
+  - Stat: 4
+    Amount: 5
   ResistanceBonuses: []

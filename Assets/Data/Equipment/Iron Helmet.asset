@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce3a423ad5abab4aa0f952143bfa2de, type: 3}
   m_Name: Iron Helmet
   m_EditorClassIdentifier: 
-  Name: 
-  Slot: 0
-  StatBonuses: []
-  Type: 0
+  Name: Iron Helmet
+  Slot: 3
+  Type: 12
+  StatBonuses:
+  - Stat: 1
+    Amount: 2
+  ResistanceBonuses:
+  - Resistance: 0
+    Amount: 5

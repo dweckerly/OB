@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce3a423ad5abab4aa0f952143bfa2de, type: 3}
   m_Name: Hand Ax
   m_EditorClassIdentifier: 
-  Name: 
+  Name: Hand Ax
   Slot: 0
-  Type: 0
-  StatBonuses: []
+  Type: 5
+  StatBonuses:
+  - Stat: 0
+    Amount: 5
   ResistanceBonuses: []

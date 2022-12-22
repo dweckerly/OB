@@ -27,9 +27,9 @@ public class Soldier : MonoBehaviour
     const int BASE_STAT_LOWER = 3;
     const int BASE_STAT_UPPER = 18;
     const int MAX_STAT_VARIANCE = 3;
-    const int PRIMARY_DEF_MOD = 100;
-    const int SECONDARY_DEF_MOD = 25;
-    const int DEF_DIVISOR = 376;
+    const int PRIMARY_STAT_MOD = 100;
+    const int SECONDARY_STAT_MOD = 25;
+    const int STAT_DIVISOR = 376;
 
     public int Number;
     public string Name;
@@ -39,6 +39,8 @@ public class Soldier : MonoBehaviour
     public Job Job;
     public int PhysicalDefense;
     public int MagicalDefense;
+    public int PhysicalAttack;
+    public int MagicalAttack;
     public Dictionary<BaseResistances, int> Resistances;
     public Dictionary<BaseStats, int> Stats;
     public Dictionary<Slot, Equipment> Equipment;
@@ -50,13 +52,13 @@ public class Soldier : MonoBehaviour
         Level = level;
         Job = job;
         CalculateBaseStats();
-        for (int i = 1; i < Level; i++)
+        for (int i = 0; i < Level; i++)
         {
             LevelUpStats();
         }
         EquipDefault();
         CalculateEquipmentStatBonuses();
-        CalculateDefences();
+        CalculateDefenses();
         InstantiateResistances();
         CalculateResistances();
     }
@@ -72,7 +74,7 @@ public class Soldier : MonoBehaviour
         RemoveEquipmentBonuses();
         Equipment[equip.Slot] = equip;
         CalculateEquipmentStatBonuses();
-        CalculateDefences();
+        CalculateDefenses();
         CalculateResistances();
     }
 
@@ -81,7 +83,7 @@ public class Soldier : MonoBehaviour
         Experience = 0;
         Level++;
         LevelUpStats();
-        CalculateDefences();
+        CalculateDefenses();
         // will need to be careful of the Job resistance bonus increasing the resistances every level
         // instantiating the resistances each time should fix??
         InstantiateResistances();
@@ -132,10 +134,16 @@ public class Soldier : MonoBehaviour
         }
     }
 
-    private void CalculateDefences()
+    private void CalculateDefenses()
     {
-        PhysicalDefense = Mathf.RoundToInt(((Stats[BaseStats.Strength] + PRIMARY_DEF_MOD) * (Stats[BaseStats.Vitality] + SECONDARY_DEF_MOD) * (Job.PhysicalDefense / 100)) / DEF_DIVISOR);
-        MagicalDefense = Mathf.RoundToInt(((Stats[BaseStats.Intelligence] + PRIMARY_DEF_MOD) * (Stats[BaseStats.Mentality] + SECONDARY_DEF_MOD) * (Job.MagicalDefense / 100)) / DEF_DIVISOR);
+        PhysicalDefense = Mathf.RoundToInt(((Stats[BaseStats.Vitality] + PRIMARY_STAT_MOD) * (Stats[BaseStats.Strength] + SECONDARY_STAT_MOD) * (Job.PhysicalDefense / 100)) / STAT_DIVISOR);
+        MagicalDefense = Mathf.RoundToInt(((Stats[BaseStats.Mentality] + PRIMARY_STAT_MOD) * (Stats[BaseStats.Intelligence] + SECONDARY_STAT_MOD) * (Job.MagicalDefense / 100)) / STAT_DIVISOR);
+    }
+
+    private void CalculateAttacks()
+    {
+        PhysicalAttack = Mathf.RoundToInt(((Stats[BaseStats.Strength] + PRIMARY_STAT_MOD) * (Stats[BaseStats.Dexterity] + SECONDARY_STAT_MOD) * (Job.PhysicalAttack / 100)) / STAT_DIVISOR);
+        MagicalAttack = Mathf.RoundToInt(((Stats[BaseStats.Intelligence] + PRIMARY_STAT_MOD) * (Stats[BaseStats.Mentality] + SECONDARY_STAT_MOD) * (Job.MagicalAttack / 100)) / STAT_DIVISOR);
     }
 
     private void CalculateResistances()

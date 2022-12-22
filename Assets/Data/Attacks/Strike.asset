@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19e6e8d9b4ce1d549a6669c4e90ecf62, type: 3}
   m_Name: Strike
   m_EditorClassIdentifier: 
-  Name: 
+  Name: Strike
   Type: 0
