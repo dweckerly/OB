@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class SoldierGenTest : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public Job[] jobs;
+
     void Start()
     {
-        
-    }
+        Soldier zero = new Soldier(0, "Zero", 1, jobs[0]);
+        Soldier one = new Soldier(1, "One", 1, jobs[0]);
+        Soldier two = new Soldier(2, "Two", 3, jobs[0]);
+        Soldier three = new Soldier(3, "Three", 3, jobs[0]);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        print(JsonUtility.ToJson(zero, true));
+        print(JsonUtility.ToJson(one, true));
+        print(JsonUtility.ToJson(two, true));
+        print(JsonUtility.ToJson(three, true));
     }
 }

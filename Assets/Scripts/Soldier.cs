@@ -22,7 +22,7 @@ public enum BaseStats {
     Luck
 }
 
-public class Soldier : MonoBehaviour
+public class Soldier
 {
     const int BASE_STAT_LOWER = 3;
     const int BASE_STAT_UPPER = 18;
@@ -41,9 +41,9 @@ public class Soldier : MonoBehaviour
     public int MagicalDefense;
     public int PhysicalAttack;
     public int MagicalAttack;
-    public Dictionary<BaseResistances, int> Resistances;
-    public Dictionary<BaseStats, int> Stats;
-    public Dictionary<Slot, Equipment> Equipment;
+    public Dictionary<BaseResistances, int> Resistances = new Dictionary<BaseResistances, int>();
+    public Dictionary<BaseStats, int> Stats = new Dictionary<BaseStats, int>();
+    public Dictionary<Slot, Equipment> Equipment = new Dictionary<Slot, Equipment>();
 
     public Soldier(int number, string name, int level, Job job)
     {
@@ -59,6 +59,7 @@ public class Soldier : MonoBehaviour
         EquipDefault();
         CalculateEquipmentStatBonuses();
         CalculateDefenses();
+        CalculateAttacks();
         InstantiateResistances();
         CalculateResistances();
     }
@@ -75,6 +76,7 @@ public class Soldier : MonoBehaviour
         Equipment[equip.Slot] = equip;
         CalculateEquipmentStatBonuses();
         CalculateDefenses();
+        CalculateAttacks();
         CalculateResistances();
     }
 
@@ -84,6 +86,7 @@ public class Soldier : MonoBehaviour
         Level++;
         LevelUpStats();
         CalculateDefenses();
+        CalculateAttacks();
         // will need to be careful of the Job resistance bonus increasing the resistances every level
         // instantiating the resistances each time should fix??
         InstantiateResistances();

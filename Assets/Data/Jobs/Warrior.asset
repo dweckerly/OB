@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Warrior
   m_EditorClassIdentifier: 
   Name: Warrior
-  PhysicalAttack: 50
-  MagicalAttack: 30
-  PhysicalDefense: 20
-  MagicalDefense: 20
+  PhysicalAttack: 120
+  MagicalAttack: 100
+  PhysicalDefense: 100
+  MagicalDefense: 100
   ItemSlots: 2
   TerrainType: 0
   StatProgressions:
