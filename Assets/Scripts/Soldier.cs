@@ -7,9 +7,11 @@ public enum Elements {
     Physical,
     Magical,
     Fire,
-    Cold,
+    Water,
     Wind,
-    Earth
+    Earth,
+    Hallowed,
+    Profane
 }
 
 public enum BaseStats {
